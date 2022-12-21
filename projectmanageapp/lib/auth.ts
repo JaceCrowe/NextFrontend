@@ -20,6 +20,7 @@ export const createJWT = (user) => {
     .setExpirationTime(exp)
     .setIssuedAt(iat)
     .setNotBefore(iat)
+      //this is used to ensure that it comes from the correct server
     .sign(new TextEncoder().encode(process.env.JWT_SECRET));
 };
 
@@ -32,6 +33,7 @@ export const validateJWT = async (jwt) => {
   return payload.payload as any;
 };
 
+//Next.js has a cookies library that you can use. It thinks that all cookie function are for the client so you will need to do some work arounds to have it appear like a client function
 export const getUserFromCookie = async (cookies) => {
   const jwt = cookies.get(process.env.COOKIE_NAME);
 
